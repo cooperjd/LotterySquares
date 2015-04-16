@@ -1,2 +1,2 @@
 # LotterySquares
-Simple point and click game
+Simple point and click game. 
