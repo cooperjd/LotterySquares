@@ -70,6 +70,9 @@ public class ChooseDifficulty extends JFrame{
 						e1.printStackTrace();
 					} catch (LineUnavailableException e1) {
 						e1.printStackTrace();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 				}
 					
@@ -93,6 +96,9 @@ public class ChooseDifficulty extends JFrame{
 						e1.printStackTrace();
 					} catch (LineUnavailableException e1) {
 						e1.printStackTrace();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 				}
 						
@@ -115,6 +121,9 @@ public class ChooseDifficulty extends JFrame{
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					} catch (LineUnavailableException e1) {
+						e1.printStackTrace();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}

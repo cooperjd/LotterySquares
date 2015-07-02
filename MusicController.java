@@ -15,7 +15,7 @@ public class MusicController {
 	private static String bgsong1 = "\\bgSong5.wav";
 	private static String bgsong2 = "\\bgSong.wav";
 	
-	public static void play(int trackNumber) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+	public static void play(int trackNumber) throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException{
 		clip = AudioSystem.getClip();
 		AudioInputStream inputStream;
 		if(trackNumber == 1){
@@ -25,12 +25,14 @@ public class MusicController {
 		}
 		clip.open(inputStream);
         clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
         playing = true;
 		System.out.println("Starting music...");
 	}
 	
 	public static void stop(){
 		clip.stop();
+		System.out.println("Stopping music...");
 		playing = false;
 	}
 }
