@@ -131,6 +131,7 @@ public class ChooseDifficulty extends JFrame{
 				if(e.getActionCommand().equalsIgnoreCase("Main Menu")){
 					System.out.println("Main Menu button pressed");
 					dispose();
+					MusicController.stop();
 					bgName = new Background(false).loadBackground().getPath();
 					new MainMenu();
 				}
