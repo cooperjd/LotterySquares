@@ -12,11 +12,18 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class MusicController {
 	public static Clip clip;
 	public static boolean playing = true;
+	private static String bgsong1 = "\\bgSong5.wav";
+	private static String bgsong2 = "\\bgSong.wav";
 	
-	public static void play() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+	public static void play(int trackNumber) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
 		clip = AudioSystem.getClip();
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(Constants.SOUNDS_PATH + "\\bgSong.wav")));
-        clip.open(inputStream);
+		AudioInputStream inputStream;
+		if(trackNumber == 1){
+			inputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(Constants.SOUNDS_PATH + bgsong2)));
+		}else{
+			inputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(Constants.SOUNDS_PATH + bgsong1)));
+		}
+		clip.open(inputStream);
         clip.start();
         playing = true;
 		System.out.println("Starting music...");

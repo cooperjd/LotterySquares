@@ -2,7 +2,12 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.IOException;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +32,7 @@ public class MainMenu extends JFrame{
 		
 		setIconImage(Constants.ICON.getImage());
 		JButton playButton = new JButton("Play");
+		JButton musicButton = new JButton("Music");
 		JButton htpButton = new JButton("How To Play");
 		JButton myRecord = new JButton("My Record");
 		JButton exitButton = new JButton("Exit");
@@ -42,9 +48,33 @@ public class MainMenu extends JFrame{
 		
 		buttonPanel.setLayout(new FlowLayout());
 		buttonPanel.add(playButton);
+		buttonPanel.add(musicButton);
 		buttonPanel.add(htpButton);
 		buttonPanel.add(myRecord);
 		buttonPanel.add(exitButton);
+		
+		KeyListener kl = new KeyListener(){
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				System.out.println("Key pressed");
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_U){
+					//THis is code for cassie to change the song. 
+					System.out.println("U pressed");
+				}
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
 		
 		ActionListener al = new ActionListener(){
 			@Override
@@ -53,6 +83,22 @@ public class MainMenu extends JFrame{
 					dispose();
 					new ChooseDifficulty(getContentPane().getSize());
 					System.out.println("Play Button Pressed.");
+				}
+				if(e.getActionCommand().equals("Music")){
+					if(MusicController.playing){
+						MusicController.stop();
+					}else{
+						try {
+							MusicController.play(0);
+						} catch (UnsupportedAudioFileException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						} catch (LineUnavailableException e1) {
+							e1.printStackTrace();
+						}
+					}
+					System.out.println("Music Button Pressed.");
 				}
 				if(e.getActionCommand().equalsIgnoreCase("How To Play")){
 					System.out.println("HTP Button Pressed.");
@@ -90,6 +136,7 @@ public class MainMenu extends JFrame{
 		};
 		
 		playButton.addActionListener(al);
+		musicButton.addActionListener(al);
 		exitButton.addActionListener(al);
 		htpButton.addActionListener(al);
 		resetRecordBut.addActionListener(al);
@@ -99,12 +146,22 @@ public class MainMenu extends JFrame{
 		recordPanel.add(recordLabel);
 		recordPanel.add(resetRecordBut);
 		
+		addKeyListener(kl);
 		add(recordPanel, BorderLayout.NORTH);
 		add(labelPanel, BorderLayout.CENTER);
 		add(buttonPanel, BorderLayout.SOUTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setVisible(true);
+		try {
+			MusicController.play(0);
+		} catch (UnsupportedAudioFileException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (LineUnavailableException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	private Record getRecord(){

@@ -45,12 +45,14 @@ public class Game extends JFrame{
 			public void actionPerformed(ActionEvent e) {				
 				if(e.getActionCommand().equals("Quit")){
 					System.out.println("Quit button pressed");
+					MusicController.stop();
 					dispose();
 					new MainMenu();
 				}
 				
 				if(e.getActionCommand().equals("Exit")){
 					System.out.println("Exit button pressed");
+					MusicController.stop();
 					System.exit(0);
 				}
 			}
@@ -104,5 +106,4 @@ public class Game extends JFrame{
 	public String getMode(){
 		return mode;
 	}
-	
 }

@@ -1,5 +1,7 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 
@@ -23,6 +25,7 @@ public class Installer {
 		try {
 			Files.createDirectory(Constants.MAIN_PATH);
 			Files.createDirectory(Constants.IMAGES_PATH);
+			Files.createDirectory(Constants.SOUNDS_PATH);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -35,6 +38,21 @@ public class Installer {
 		    for (File child : directoryListing) {
 		       try {
 				copyFiles(downloadedFilePath + "\\" + child.getName(), child.getName());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		    }
+		  } else {
+		    new MessageBox("Some files are missing. Please download Lottery Squares again.","Error!");
+		  }
+		  
+		  downloadedFilePath = System.getProperty("user.dir") + "\\Sounds";
+		  dir = new File(downloadedFilePath);
+		  directoryListing = dir.listFiles();
+		  if (directoryListing != null) {
+		    for (File child : directoryListing) {
+		       try {
+				copyAudioFiles(downloadedFilePath + "\\" + child.getName(), child.getName());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -74,6 +92,25 @@ public class Installer {
 				
 		ImageInputStream in = new FileImageInputStream(original);
 		ImageOutputStream out= new FileImageOutputStream(copy);
+
+
+		// Transfer bytes from in to out
+		byte[] buf = new byte[1024];
+		int len;
+		while ((len = in.read(buf)) > 0) {
+		out.write(buf, 0, len);
+		}
+		in.close();
+		out.close();
+	}
+	
+	private void copyAudioFiles(String downloadedFilePath, String nameOfCopy) throws FileNotFoundException, IOException{
+		
+		File copy = new File(Constants.SOUNDS_PATH + "\\" + nameOfCopy);
+		File original = new File(downloadedFilePath);
+				
+		FileInputStream in = new FileInputStream(original);
+		FileOutputStream out= new FileOutputStream(copy);
 
 
 		// Transfer bytes from in to out

@@ -3,7 +3,10 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -55,6 +58,19 @@ public class ChooseDifficulty extends JFrame{
 					new Game(mode, bgName);
 					if(options != null)
 						options.dispose();
+					
+					try {
+						if(MusicController.playing){
+							MusicController.stop();
+							MusicController.play(1);
+						}
+					} catch (UnsupportedAudioFileException e1) {
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
 				}
 					
 				if(e.getActionCommand().equalsIgnoreCase("Medium")){
@@ -65,6 +81,19 @@ public class ChooseDifficulty extends JFrame{
 					new Game(mode, bgName);
 					if(options != null)
 						options.dispose();
+					
+					try {
+						if(MusicController.playing){
+							MusicController.stop();
+							MusicController.play(1);
+						}
+					} catch (UnsupportedAudioFileException e1) {
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
 				}
 						
 				if(e.getActionCommand().equalsIgnoreCase("Hard")){
@@ -75,6 +104,19 @@ public class ChooseDifficulty extends JFrame{
 					new Game(mode, bgName);
 					if(options != null)
 						options.dispose();
+					
+					try {
+						if(MusicController.playing){
+							MusicController.stop();
+							MusicController.play(1);
+						}
+					} catch (UnsupportedAudioFileException e1) {
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
 				}
 				
 				if(e.getActionCommand().equalsIgnoreCase("Main Menu")){
@@ -118,7 +160,6 @@ public class ChooseDifficulty extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
-		
 	}
 	
 	public String getBGName(){
